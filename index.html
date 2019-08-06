@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cdcdcd;
+        }
+
+        table th,
+        table td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".add-row").click(function() {
+                var startnum = $("#startnum").val();
+                var banger = $("#banger").val();
+                var finalnum = $("#finalnum").val();
+                var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + startnum + "</td><td>" + banger + "</td><td>"+finalnum + "</td></tr>";
+                $("table tbody").append(markup);
+            });
+            /* Find and remove selected table rows */
+            $(".delete-row").click(function() {
+                $("table tbody").find('input[name="record"]').each(function() {
+                    if ($(this).is(":checked")) {
+                        $(this).parents("tr").remove();
+                    }
+                });
+            });
+        });
+
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+    
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+        
+        for (var j = 0; j < cols.length; j++) 
+            row.push(cols[j].innerText);
+        
+        csv.push(row.join(","));        
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+
+    </script>
+</head>
+<body>
+    <form>
+        <input type="text" type="text" pattern="\d*" id="startnum" placeholder="">
+        <input type="text" type="text" pattern="\d*" id="banger" placeholder="">                    
+
+<input type="text" type="text" pattern="\d*" id="finalnum" placeholder="">
+        <input type="button" class="add-row" value="Add Row">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Start</th>
+                <th>Banger</th>
+                <th>End</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" name="record"></td>
+                <td>0</td>
+                <td>0</td>
+<td>0</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="delete-row">Delete Row</button>
+<button onclick="exportTableToCSV('file.csv')">Export HTML Table To CSV File</button>
+</body>
+</html>
