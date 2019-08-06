@@ -21,6 +21,7 @@
             text-align: left;
         }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -95,6 +96,7 @@ function exportTableToCSV(filename) {
 <input type="text" type="text" pattern="\d*" id="finalnum" placeholder="">
         <input type="button" class="add-row" value="Add Row">
     </form>
+    <div class="table-responsive">
     <table>
         <thead>
             <tr>
@@ -115,5 +117,6 @@ function exportTableToCSV(filename) {
     </table>
     <button type="button" class="delete-row">Delete Row</button>
 <button onclick="exportTableToCSV('file.csv')">Export HTML Table To CSV File</button>
+    </div>
 </body>
 </html>
