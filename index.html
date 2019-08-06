@@ -51,7 +51,7 @@ function downloadCSV(csv, filename) {
 
     // Download link
     downloadLink = document.createElement("a");
-
+    downloadLink.setAttribute('download', filename);
     // File name
     downloadLink.download = filename;
 
