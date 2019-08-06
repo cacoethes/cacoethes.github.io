@@ -81,9 +81,9 @@ function exportTableToCSV(filename) {
         
         csv.push(row.join(","));        
     }
-
+  localStorage.saveData = csv;
     // Download CSV file
-    downloadCSV(csv.join("\n"), filename);
+    //downloadCSV(csv.join("\n"), filename);
 }
 
     </script>
